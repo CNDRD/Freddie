@@ -3,5 +3,5 @@
 /stuff/
 *.yml
 cog.py
-linked_accs.json
+linked_accounts.json
 *.exe

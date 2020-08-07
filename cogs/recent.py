@@ -63,7 +63,7 @@ class RecentPlay(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['l'])
-    async def link(self, ctx, user:str):
+    async def link(self, ctx, *, user:str):
         uid = ctx.author.id
 
         with open(linked_accs_location, 'r') as f:
@@ -80,7 +80,7 @@ class RecentPlay(commands.Cog):
 
 
     @commands.command(aliases=['r'])
-    async def recent(self, ctx, user=None):
+    async def recent(self, ctx, *, user=None):
         rank_emote = None
         if user is None:
             with open(linked_accs_location, "r") as f:
