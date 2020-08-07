@@ -1,13 +1,27 @@
-#### Tree structure
+### Commands  
+*For shits and giggles let's say the prefix is [ , ] (comma)*  
+
+| Command            | What does it do                                         | Alias |
+|--------------------|---------------------------------------------------------|:-----:|
+|`,link [username]`  | Links your osu! account with your Discord account       | `l`   |
+|`,recent <username>`| Shows your (or <username>s) most recent play statistics | `r`   |
+
+#### Argument rules
+| Brackets | Required? |
+|:--------:|:---------:|
+|**[ ]**   | ✔️       |
+|**< >**   | ❌       |
+
+#### Tree structure  
 ```
 📦 Frederick
     📂 cogs
         📜 recent.py
     📂 chromedriver
-        📜 chromedriver.exe
+        📜 chromedriver(.exe)
     📜 config.yml  
     📜 fred.py  
-    📜 linked_accs.json  
+    📜 linked_accounts.json  
 ```
 #### config.yml
 ```yaml
@@ -20,6 +34,12 @@ admin_user_ids:
   ...
 prefix: whatever you want it to be
 ```
+#### linked_accounts.json
+```
+{}
+```
+Make sure that `linked_accounts.json` looks exactly like this before you link the first account.
+
 Download [chrome driver](https://chromedriver.chromium.org/) (same version as your chrome browser) and place it where it belongs according to the tree structure.  
 
 Made with ❤️ by CNDRD
