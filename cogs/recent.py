@@ -73,7 +73,7 @@ class RecentPlay(commands.Cog):
             accs = json.dump(f)
 
 
-    @commands.command(aliases=['m'])
+    @commands.command(aliases=['r'])
     async def recent(self, ctx, user=None):
         rank_emote = None
         if user is None:
