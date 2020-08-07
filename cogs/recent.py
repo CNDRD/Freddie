@@ -64,13 +64,19 @@ class RecentPlay(commands.Cog):
 
     @commands.command(aliases=['l'])
     async def link(self, ctx, user:str):
-        with open(linked_accs_location, "r") as f:
-            accs = json.load(f)
+        uid = ctx.author.id
 
-        accs[ctx.author.id] = user
+        with open(linked_accs_location, 'r') as f:
+            users = json.load(f)
+            f.close()
 
-        with open(linked_accs_location, "w") as f:
-            accs = json.dump(f)
+        users[str(uid)] = {}
+        users[str(uid)] = user
+
+        with open(linked_accs_location, 'w') as f:
+            json.dump(users, f)
+            f.close()
+        await ctx.message.add_reaction('✅')
 
 
     @commands.command(aliases=['r'])
