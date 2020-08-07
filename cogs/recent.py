@@ -82,53 +82,63 @@ class RecentPlay(commands.Cog):
     @commands.command(aliases=['r'])
     async def recent(self, ctx, *, user=None):
         rank_emote = None
-        if user is None:
-            with open(linked_accs_location, "r") as f:
-                accs = json.load(f)
-            user = accs[str(ctx.author.id)]
+        uid = ctx.author.id
+        in_json = True
 
-        link = f"https://akatsuki.pw/u/{user}"
-        data = get_mega_mind(link)
+        async with ctx.typing():
+            if user is None:
+                with open(linked_accs_location, "r") as f:
+                    accs = json.load(f)
+                if str(uid) in accs:
+                    user = accs[str(uid)]
+                else:
+                    in_json = False
 
-        rank_name = data['rank']
-        for guild in self.client.guilds:
-            emojis = guild.emojis
-            for emote in emojis:
-                if emote.name == rank_name:
-                    rank_emote = emote
-            if rank_emote is None:
-                for emote in emojis:
-                    if emote.name == 'osu':
-                        rank_emote = emote
+            if in_json:
+                link = f"https://akatsuki.pw/u/{user}"
+                data = get_mega_mind(link)
 
-        if(pp := data['PP']) == '0':
-            score = f"**{data['Points']} points**"
-        else:
-            score = f"**{pp}PP**"
+                rank_name = data['rank']
+                for guild in self.client.guilds:
+                    emojis = guild.emojis
+                    for emote in emojis:
+                        if emote.name == rank_name:
+                            rank_emote = emote
+                    if rank_emote is None:
+                        for emote in emojis:
+                            if emote.name == 'osu':
+                                rank_emote = emote
 
-        stars = round(float(data['Difficulty'].replace(' stars','')), 2)
+                if(pp := data['PP']) == '0':
+                    score = f"**{data['Points']} points**"
+                else:
+                    score = f"**{pp}PP**"
 
-        tim = data['Achieved']
-        y_feeties = tim.replace('T',' ').replace('Z','')
-        dt = datetime.strptime(y_feeties, '%Y-%m-%d %H:%M:%S')
-        x_feeties = time.mktime(dt.timetuple())
-        feeter = f"{format_timespan(int(time.time() - x_feeties))} ago"
+                stars = round(float(data['Difficulty'].replace(' stars','')), 2)
 
-        tristo = int(data['300s']) + int(data['Gekis'])
-        jensto = int(data['100s']) + int(data['Katus'])
+                tim = data['Achieved']
+                y_feeties = tim.replace('T',' ').replace('Z','')
+                dt = datetime.strptime(y_feeties, '%Y-%m-%d %H:%M:%S')
+                x_feeties = time.mktime(dt.timetuple())
+                feeter = f"{format_timespan(int(time.time() - x_feeties))} ago"
 
-        el1 = f"• {rank_emote} • **{data['PP']}PP** • {data['Accuracy']} [{stars}★]"
-        el2 = f"• {data['Points']} points • x{data['Max combo']} • [{tristo}/{jensto}/{data['50s']}/{data['Misses']}]"
+                tristo = int(data['300s']) + int(data['Gekis'])
+                jensto = int(data['100s']) + int(data['Katus'])
 
+                el1 = f"• {rank_emote} • **{data['PP']}PP** • {data['Accuracy']} [{stars}★]"
+                el2 = f"• {data['Points']} points • x{data['Max combo']} • [{tristo}/{jensto}/{data['50s']}/{data['Misses']}]"
 
-        embed = discord.Embed(colour=discord.Colour(0xff66aa))
+                embed = discord.Embed(colour=discord.Colour(0xff66aa))
+                embed.set_author(name=f"Latest osu! play from {user}", url=f"https://akatsuki.pw{data['map_link_part']}")
+                embed.set_thumbnail(url=data['pfp_link'])
+                embed.add_field(name=f"{data['map_name']}",
+                                value=f"{el1}\n{el2}",
+                                inline=False)
+                embed.set_footer(text=feeter)
 
-        embed.set_author(name=f"Latest osu! play from {user}", url=f"https://akatsuki.pw{data['map_link_part']}")
-        embed.set_thumbnail(url=data['pfp_link'])
-        embed.add_field(name=f"{data['map_name']}",
-                        value=f"{el1}\n{el2}",
-                        inline=False)
-        embed.set_footer(text=feeter)
+            else:
+                embed = discord.Embed(colour=discord.Colour(0xff6d10))
+                embed.set_author(name=f"You haven't set up your username yet!\nUse '{ctx.prefix}link [username]' to do so.")
 
         await ctx.send(embed=embed)
 
