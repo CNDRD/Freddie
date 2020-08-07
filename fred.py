@@ -32,7 +32,7 @@ async def on_ready():
     print(f"Here comes Fred! [{cogs(cog_count)}] [{tn}]")
 
 
-@client.command(aliases=['r'])
+@client.command(aliases=['rc'])
 async def reload_cogs(ctx):
     y = 0
     for filename in os.listdir('./cogs'):
