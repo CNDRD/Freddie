@@ -15,7 +15,7 @@ def cogs(cc):
     return f"With {cc} cogs"
 
 ################################## Bot Setup ##################################
-client = commands.Bot(command_prefix='-')
+client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
 
 ################################### Cog Load ##################################
