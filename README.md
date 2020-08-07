@@ -11,11 +11,10 @@
 ```
 #### config.yml
 ```yaml
-chromedriver_path:
-invite_link:
-token:
-linked_accs_location:
-prefix:
+chromedriver_path: absolute path to your chromedriver file
+token: bots token, won't work without it
+linked_accs_location: path to the linked_accs.json file
+prefix: whatever you want it to be
 ```
 Download [chrome driver](https://chromedriver.chromium.org/) (same version as your chrome browser) and place it where it belongs according to the tree structure.  
 `chromedriver_path` should be an absolute path to your chromedriver.exe (er whatever it's called)
