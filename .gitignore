@@ -1,0 +1,7 @@
+**/__pycache__/**
+
+/stuff/
+*.yml
+cog.py
+linked_accs.json
+*.exe

@@ -1,0 +1,6 @@
+git+https://github.com/Rapptz/discord.py
+humanfriendly==8.2
+selenium==3.141.0
+requests==2.24.0
+PyYAML==5.3.1
+bs4==0.0.1
