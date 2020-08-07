@@ -46,6 +46,7 @@ async def reload_cogs(ctx):
             print(f"\nSuccesfully reloaded {y}/{cog_count} cogs!\n")
         await ctx.message.add_reaction('✅')
     else:
+        await ctx.message.add_reaction('❌')
         await ctx.send("❗ You don't have permission to do that ❗")
 
 client.run(token)
