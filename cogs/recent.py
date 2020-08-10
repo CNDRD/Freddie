@@ -137,8 +137,10 @@ class RecentPlay(commands.Cog):
                 embed.set_footer(text=feeter)
 
             else:
-                embed = discord.Embed(colour=discord.Colour(0xff6d10))
-                embed.set_author(name=f"You haven't set up your username yet!\nUse '{ctx.prefix}link [username]' to do so.")
+                embed = discord.Embed(
+                colour=discord.Colour(0xff6d10),
+                title=f"You haven't set up your username yet!",
+                description=f"Use '{ctx.prefix}link [username]' to do so.")
 
         await ctx.send(embed=embed)
 
